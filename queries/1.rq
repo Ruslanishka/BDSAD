@@ -1,0 +1,9 @@
+PREFIX imdb: <http://academy.ontotext.com/imdb/>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?title WHERE {
+    ?movie a ?type ;
+        schema:actor <http://academy.ontotext.com/imdb/person/MorganFreeman> ;
+        schema:name ?title .
+    FILTER (?type = imdb:ColorMovie || ?type = imdb:BlackandWhiteMovie)
+}

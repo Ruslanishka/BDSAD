@@ -1,0 +1,14 @@
+PREFIX imdb: <http://academy.ontotext.com/imdb/>
+PREFIX schema: <http://schema.org/>
+
+SELECT ?title (GROUP_CONCAT(?genre; SEPARATOR=", ") AS ?genres) WHERE {
+    ?movie a imdb:ColorMovie ;
+        schema:actor <http://academy.ontotext.com/imdb/person/JohnnyDepp> ;
+        schema:name ?title ;
+        schema:genre ?genre .
+    FILTER EXISTS {
+        ?movie schema:genre ?dramaGenre .
+        FILTER (CONTAINS(LCASE(?dramaGenre), "drama"))
+    }
+}
+GROUP BY ?movie ?title
